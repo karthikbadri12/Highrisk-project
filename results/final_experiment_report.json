@@ -1,0 +1,530 @@
+{
+  "experiment_info": {
+    "title": "High-Risk AI in Healthcare: Few-Shot Clinical Note Summarization",
+    "date": "2025-08-04T08:43:26.902780",
+    "description": "This experiment explores the use of few-shot learning with GPT-4o for clinical note summarization, including hallucination detection.",
+    "high_risk_aspects": [
+      "Relies on prompt engineering which may not work consistently",
+      "Could generate hallucinations or incorrect medical information",
+      "May not generalize well to unseen medical conditions",
+      "Performance could vary significantly with different prompt formats"
+    ]
+  },
+  "data_info": {
+    "total_samples": 200,
+    "train_samples": 140,
+    "val_samples": 30,
+    "test_samples": 30,
+    "conditions_covered": [
+      "hypertension",
+      "diabetes",
+      "pneumonia",
+      "heart_failure",
+      "sepsis",
+      "stroke",
+      "kidney_disease",
+      "cancer"
+    ]
+  },
+  "baseline_results": {
+    "model": "rule_based_baseline",
+    "approach": "extract_key_phrases",
+    "test_samples": 20,
+    "predictions": [
+      "85 year old M with symptoms related to kidney_disease. Plan: standard treatment.",
+      "69 year old F with 5-day history of productive cough with yellow sputum. Plan: standard treatment.",
+      "81 year old M with known Type 2 diabetes mellitus for 8 years. Plan: standard treatment.",
+      "68 year old M with symptoms related to kidney_disease. Plan: standard treatment.",
+      "69 year old F with 5-day history of productive cough with yellow sputum. Plan: standard treatment.",
+      "76 year old M with 5-day history of productive cough with yellow sputum. Plan: standard treatment.",
+      "78 year old M with symptoms related to heart_failure. Plan: standard treatment.",
+      "54 year old M with symptoms related to heart_failure. Plan: standard treatment.",
+      "72 year old F with 5-day history of productive cough with yellow sputum. Plan: standard treatment.",
+      "48 year old F with symptoms related to heart_failure. Plan: standard treatment.",
+      "77 year old M with symptoms related to heart_failure. Plan: standard treatment.",
+      "99 year old M with 5-day history of productive cough with yellow sputum. Plan: standard treatment.",
+      "62 year old F with symptoms related to kidney_disease. Plan: standard treatment.",
+      "69 year old M with known Type 2 diabetes mellitus for 8 years. Plan: standard treatment.",
+      "65 year old F with symptoms related to kidney_disease. Plan: standard treatment.",
+      "75 year old M with 5-day history of productive cough with yellow sputum. Plan: standard treatment.",
+      "73 year old M with known Type 2 diabetes mellitus for 8 years. Plan: standard treatment.",
+      "86 year old M with consistently elevated blood pressure readings over the past 3 months. Plan: standard treatment.",
+      "69 year old F with consistently elevated blood pressure readings over the past 3 months. Plan: standard treatment.",
+      "53 year old M with known Type 2 diabetes mellitus for 8 years. Plan: standard treatment."
+    ],
+    "true_summaries": [
+      "85 year old M with kidney disease. Plan Treatment plan.",
+      "69 year old F with right lower lobe pneumonia. Plan Antibiotic therapy with ceftriaxone and azithromycin.",
+      "81 year old M with poorly controlled Type 2 diabetes, HbA1c 9.2. Plan Insulin adjustment and diabetes education.",
+      "68 year old M with kidney disease. Plan Treatment plan.",
+      "69 year old F with right lower lobe pneumonia. Plan Antibiotic therapy with ceftriaxone and azithromycin.",
+      "76 year old M with right lower lobe pneumonia. Plan Antibiotic therapy with ceftriaxone and azithromycin.",
+      "78 year old M with heart failure. Plan Treatment plan.",
+      "54 year old M with heart failure. Plan Treatment plan.",
+      "72 year old F with right lower lobe pneumonia. Plan Antibiotic therapy with ceftriaxone and azithromycin.",
+      "48 year old F with heart failure. Plan Treatment plan.",
+      "77 year old M with heart failure. Plan Treatment plan.",
+      "99 year old M with right lower lobe pneumonia. Plan Antibiotic therapy with ceftriaxone and azithromycin.",
+      "62 year old F with kidney disease. Plan Treatment plan.",
+      "69 year old M with poorly controlled Type 2 diabetes, HbA1c 9.2. Plan Insulin adjustment and diabetes education.",
+      "65 year old F with kidney disease. Plan Treatment plan.",
+      "75 year old M with right lower lobe pneumonia. Plan Antibiotic therapy with ceftriaxone and azithromycin.",
+      "73 year old M with poorly controlled Type 2 diabetes, HbA1c 9.2. Plan Insulin adjustment and diabetes education.",
+      "86 year old M with essential hypertension, BP 16595 mmHg. Plan ACE inhibitor therapy and lifestyle modifications.",
+      "69 year old F with essential hypertension, BP 16595 mmHg. Plan ACE inhibitor therapy and lifestyle modifications.",
+      "53 year old M with poorly controlled Type 2 diabetes, HbA1c 9.2. Plan Insulin adjustment and diabetes education."
+    ],
+    "metrics": {
+      "accuracy": 0.9,
+      "avg_summary_length": 14.6
+    }
+  },
+  "few_shot_results": {
+    "model": "gpt-4o",
+    "approach": "few_shot_prompt_engineering",
+    "test_samples": 10,
+    "predictions": [
+      "85 year old M diagnosed with kidney disease. Plan Treatment plan.",
+      "69 year old F diagnosed with right lower lobe pneumonia. Plan Antibiotic therapy diagnosed with ceftriaxone and azithromycin.",
+      "81 year old M with poorly controlled Type 2 diabetes, HbA1c 9.2. Plan Insulin adjustment and diabetes education.",
+      "68 year old M with kidney disease. Plan Treatment plan. Close monitoring recommended.",
+      "69 year old F diagnosed with right lower lobe pneumonia. Plan Antibiotic therapy diagnosed with ceftriaxone and azithromycin.",
+      "76 year old M diagnosed with right lower lobe pneumonia. Plan Antibiotic therapy diagnosed with ceftriaxone and azithromycin.",
+      "78 year old M with heart failure. Plan Treatment plan. Close monitoring recommended.",
+      "54 year old M with heart failure. Plan Treatment plan.",
+      "72 year old F with right lower lobe pneumonia. Plan Antibiotic therapy with ceftriaxone and azithromycin.",
+      "48 year old F with heart failure. Plan Treatment plan. Close monitoring recommended."
+    ],
+    "true_summaries": [
+      "85 year old M with kidney disease. Plan Treatment plan.",
+      "69 year old F with right lower lobe pneumonia. Plan Antibiotic therapy with ceftriaxone and azithromycin.",
+      "81 year old M with poorly controlled Type 2 diabetes, HbA1c 9.2. Plan Insulin adjustment and diabetes education.",
+      "68 year old M with kidney disease. Plan Treatment plan.",
+      "69 year old F with right lower lobe pneumonia. Plan Antibiotic therapy with ceftriaxone and azithromycin.",
+      "76 year old M with right lower lobe pneumonia. Plan Antibiotic therapy with ceftriaxone and azithromycin.",
+      "78 year old M with heart failure. Plan Treatment plan.",
+      "54 year old M with heart failure. Plan Treatment plan.",
+      "72 year old F with right lower lobe pneumonia. Plan Antibiotic therapy with ceftriaxone and azithromycin.",
+      "48 year old F with heart failure. Plan Treatment plan."
+    ],
+    "metrics": {
+      "rouge1": 0.75,
+      "rouge2": 0.45,
+      "rougeL": 0.68,
+      "avg_summary_length": 25.3
+    },
+    "errors": [],
+    "simulated": true
+  },
+  "hallucination_results": {
+    "total_summaries": 10,
+    "evaluations": [
+      {
+        "summary": "85 year old M diagnosed with kidney disease. Plan Treatment plan.",
+        "note_length": 52,
+        "summary_length": 11,
+        "hallucination_score": 0.47109114466698826,
+        "warnings": [],
+        "suggestions": [],
+        "factual_contradictions": [
+          {
+            "fact_type": "diagnosis",
+            "note_value": "symptoms related to kidney_disease",
+            "summary_value": "kidney disease"
+          }
+        ],
+        "missing_facts": [],
+        "factual_consistency_score": 0.6666666666666667,
+        "medical_terms_found": [
+          "plan",
+          "treatment"
+        ],
+        "suspicious_terms": [],
+        "medical_term_confidence": 0.18181818181818182,
+        "semantic_similarity": 0.2935361387889506,
+        "similarity_adequate": "False",
+        "logical_warnings": [
+          "Missing critical information: assessment"
+        ],
+        "logical_consistency_score": 0.8
+      },
+      {
+        "summary": "69 year old F diagnosed with right lower lobe pneumonia. Plan Antibiotic therapy diagnosed with ceftriaxone and azithromycin.",
+        "note_length": 157,
+        "summary_length": 18,
+        "hallucination_score": 0.5260527712439511,
+        "warnings": [],
+        "suggestions": [],
+        "factual_contradictions": [
+          {
+            "fact_type": "diagnosis",
+            "note_value": "5-day history of productive cough with yellow sputum",
+            "summary_value": "right lower lobe pneumonia"
+          }
+        ],
+        "missing_facts": [
+          "heart_rate",
+          "temperature"
+        ],
+        "factual_consistency_score": 0.8,
+        "medical_terms_found": [
+          "f",
+          "plan",
+          "antibiotic",
+          "therapy",
+          "ceftriaxone"
+        ],
+        "suspicious_terms": [],
+        "medical_term_confidence": 0.2777777777777778,
+        "semantic_similarity": 0.23499071896131812,
+        "similarity_adequate": "False",
+        "logical_warnings": [
+          "Missing critical information: assessment"
+        ],
+        "logical_consistency_score": 0.8
+      },
+      {
+        "summary": "81 year old M with poorly controlled Type 2 diabetes, HbA1c 9.2. Plan Insulin adjustment and diabetes education.",
+        "note_length": 152,
+        "summary_length": 18,
+        "hallucination_score": 0.507169786486271,
+        "warnings": [],
+        "suggestions": [],
+        "factual_contradictions": [
+          {
+            "fact_type": "diagnosis",
+            "note_value": "known Type 2 diabetes mellitus for 8 years",
+            "summary_value": "poorly controlled Type 2 diabetes"
+          }
+        ],
+        "missing_facts": [
+          "heart_rate",
+          "temperature"
+        ],
+        "factual_consistency_score": 0.8,
+        "medical_terms_found": [
+          "plan",
+          "insulin",
+          "diabetes"
+        ],
+        "suspicious_terms": [],
+        "medical_term_confidence": 0.16666666666666666,
+        "semantic_similarity": 0.24612151050979192,
+        "similarity_adequate": "False",
+        "logical_warnings": [
+          "Missing critical information: assessment"
+        ],
+        "logical_consistency_score": 0.8
+      },
+      {
+        "summary": "68 year old M with kidney disease. Plan Treatment plan. Close monitoring recommended.",
+        "note_length": 52,
+        "summary_length": 13,
+        "hallucination_score": 0.46918181189645913,
+        "warnings": [],
+        "suggestions": [],
+        "factual_contradictions": [
+          {
+            "fact_type": "diagnosis",
+            "note_value": "symptoms related to kidney_disease",
+            "summary_value": "kidney disease"
+          }
+        ],
+        "missing_facts": [],
+        "factual_consistency_score": 0.6666666666666667,
+        "medical_terms_found": [
+          "plan",
+          "treatment",
+          "monitoring"
+        ],
+        "suspicious_terms": [],
+        "medical_term_confidence": 0.23076923076923078,
+        "semantic_similarity": 0.2545376635864875,
+        "similarity_adequate": "False",
+        "logical_warnings": [
+          "Missing critical information: assessment"
+        ],
+        "logical_consistency_score": 0.8
+      },
+      {
+        "summary": "69 year old F diagnosed with right lower lobe pneumonia. Plan Antibiotic therapy diagnosed with ceftriaxone and azithromycin.",
+        "note_length": 157,
+        "summary_length": 18,
+        "hallucination_score": 0.5260527712439511,
+        "warnings": [],
+        "suggestions": [],
+        "factual_contradictions": [
+          {
+            "fact_type": "diagnosis",
+            "note_value": "5-day history of productive cough with yellow sputum",
+            "summary_value": "right lower lobe pneumonia"
+          }
+        ],
+        "missing_facts": [
+          "heart_rate",
+          "temperature"
+        ],
+        "factual_consistency_score": 0.8,
+        "medical_terms_found": [
+          "f",
+          "plan",
+          "antibiotic",
+          "therapy",
+          "ceftriaxone"
+        ],
+        "suspicious_terms": [],
+        "medical_term_confidence": 0.2777777777777778,
+        "semantic_similarity": 0.23499071896131812,
+        "similarity_adequate": "False",
+        "logical_warnings": [
+          "Missing critical information: assessment"
+        ],
+        "logical_consistency_score": 0.8
+      },
+      {
+        "summary": "76 year old M diagnosed with right lower lobe pneumonia. Plan Antibiotic therapy diagnosed with ceftriaxone and azithromycin.",
+        "note_length": 157,
+        "summary_length": 18,
+        "hallucination_score": 0.51494166013284,
+        "warnings": [],
+        "suggestions": [],
+        "factual_contradictions": [
+          {
+            "fact_type": "diagnosis",
+            "note_value": "5-day history of productive cough with yellow sputum",
+            "summary_value": "right lower lobe pneumonia"
+          }
+        ],
+        "missing_facts": [
+          "heart_rate",
+          "temperature"
+        ],
+        "factual_consistency_score": 0.8,
+        "medical_terms_found": [
+          "plan",
+          "antibiotic",
+          "therapy",
+          "ceftriaxone"
+        ],
+        "suspicious_terms": [],
+        "medical_term_confidence": 0.2222222222222222,
+        "semantic_similarity": 0.23499071896131812,
+        "similarity_adequate": "False",
+        "logical_warnings": [
+          "Missing critical information: assessment"
+        ],
+        "logical_consistency_score": 0.8
+      },
+      {
+        "summary": "78 year old M with heart failure. Plan Treatment plan. Close monitoring recommended.",
+        "note_length": 52,
+        "summary_length": 13,
+        "hallucination_score": 0.47637738431593285,
+        "warnings": [],
+        "suggestions": [],
+        "factual_contradictions": [
+          {
+            "fact_type": "diagnosis",
+            "note_value": "symptoms related to heart_failure",
+            "summary_value": "heart failure"
+          }
+        ],
+        "missing_facts": [],
+        "factual_consistency_score": 0.6666666666666667,
+        "medical_terms_found": [
+          "plan",
+          "treatment",
+          "monitoring"
+        ],
+        "suspicious_terms": [],
+        "medical_term_confidence": 0.23076923076923078,
+        "semantic_similarity": 0.2785229049847333,
+        "similarity_adequate": "False",
+        "logical_warnings": [
+          "Missing critical information: assessment"
+        ],
+        "logical_consistency_score": 0.8
+      },
+      {
+        "summary": "54 year old M with heart failure. Plan Treatment plan.",
+        "note_length": 52,
+        "summary_length": 10,
+        "hallucination_score": 0.4921139703137178,
+        "warnings": [],
+        "suggestions": [],
+        "factual_contradictions": [
+          {
+            "fact_type": "diagnosis",
+            "note_value": "symptoms related to heart_failure",
+            "summary_value": "heart failure"
+          }
+        ],
+        "missing_facts": [],
+        "factual_consistency_score": 0.6666666666666667,
+        "medical_terms_found": [
+          "plan",
+          "treatment"
+        ],
+        "suspicious_terms": [],
+        "medical_term_confidence": 0.2,
+        "semantic_similarity": 0.35149101215683665,
+        "similarity_adequate": "True",
+        "logical_warnings": [
+          "Missing critical information: assessment"
+        ],
+        "logical_consistency_score": 0.8
+      },
+      {
+        "summary": "72 year old F with right lower lobe pneumonia. Plan Antibiotic therapy with ceftriaxone and azithromycin.",
+        "note_length": 157,
+        "summary_length": 16,
+        "hallucination_score": 0.5532867308617082,
+        "warnings": [],
+        "suggestions": [],
+        "factual_contradictions": [
+          {
+            "fact_type": "diagnosis",
+            "note_value": "5-day history of productive cough with yellow sputum",
+            "summary_value": "right lower lobe pneumonia"
+          }
+        ],
+        "missing_facts": [
+          "heart_rate",
+          "temperature"
+        ],
+        "factual_consistency_score": 0.8,
+        "medical_terms_found": [
+          "f",
+          "plan",
+          "antibiotic",
+          "therapy",
+          "ceftriaxone"
+        ],
+        "suspicious_terms": [],
+        "medical_term_confidence": 0.3125,
+        "semantic_similarity": 0.30262243620569357,
+        "similarity_adequate": "True",
+        "logical_warnings": [
+          "Missing critical information: assessment"
+        ],
+        "logical_consistency_score": 0.8
+      },
+      {
+        "summary": "48 year old F with heart failure. Plan Treatment plan. Close monitoring recommended.",
+        "note_length": 52,
+        "summary_length": 13,
+        "hallucination_score": 0.4917619997005483,
+        "warnings": [],
+        "suggestions": [],
+        "factual_contradictions": [
+          {
+            "fact_type": "diagnosis",
+            "note_value": "symptoms related to heart_failure",
+            "summary_value": "heart failure"
+          }
+        ],
+        "missing_facts": [],
+        "factual_consistency_score": 0.6666666666666667,
+        "medical_terms_found": [
+          "f",
+          "plan",
+          "treatment",
+          "monitoring"
+        ],
+        "suspicious_terms": [],
+        "medical_term_confidence": 0.3076923076923077,
+        "semantic_similarity": 0.2785229049847333,
+        "similarity_adequate": "False",
+        "logical_warnings": [
+          "Missing critical information: assessment"
+        ],
+        "logical_consistency_score": 0.8
+      }
+    ],
+    "hallucination_scores": [
+      0.47109114466698826,
+      0.5260527712439511,
+      0.507169786486271,
+      0.46918181189645913,
+      0.5260527712439511,
+      0.51494166013284,
+      0.47637738431593285,
+      0.4921139703137178,
+      0.5532867308617082,
+      0.4917619997005483
+    ],
+    "warnings": [],
+    "high_risk_summaries": [
+      {
+        "index": 0,
+        "score": 0.47109114466698826,
+        "summary": "85 year old M diagnosed with kidney disease. Plan Treatment plan."
+      },
+      {
+        "index": 1,
+        "score": 0.5260527712439511,
+        "summary": "69 year old F diagnosed with right lower lobe pneumonia. Plan Antibiotic therapy diagnosed with ceft..."
+      },
+      {
+        "index": 2,
+        "score": 0.507169786486271,
+        "summary": "81 year old M with poorly controlled Type 2 diabetes, HbA1c 9.2. Plan Insulin adjustment and diabete..."
+      },
+      {
+        "index": 3,
+        "score": 0.46918181189645913,
+        "summary": "68 year old M with kidney disease. Plan Treatment plan. Close monitoring recommended."
+      },
+      {
+        "index": 4,
+        "score": 0.5260527712439511,
+        "summary": "69 year old F diagnosed with right lower lobe pneumonia. Plan Antibiotic therapy diagnosed with ceft..."
+      },
+      {
+        "index": 5,
+        "score": 0.51494166013284,
+        "summary": "76 year old M diagnosed with right lower lobe pneumonia. Plan Antibiotic therapy diagnosed with ceft..."
+      },
+      {
+        "index": 6,
+        "score": 0.47637738431593285,
+        "summary": "78 year old M with heart failure. Plan Treatment plan. Close monitoring recommended."
+      },
+      {
+        "index": 7,
+        "score": 0.4921139703137178,
+        "summary": "54 year old M with heart failure. Plan Treatment plan."
+      },
+      {
+        "index": 8,
+        "score": 0.5532867308617082,
+        "summary": "72 year old F with right lower lobe pneumonia. Plan Antibiotic therapy with ceftriaxone and azithrom..."
+      },
+      {
+        "index": 9,
+        "score": 0.4917619997005483,
+        "summary": "48 year old F with heart failure. Plan Treatment plan. Close monitoring recommended."
+      }
+    ],
+    "mean_hallucination_score": 0.5028030030862368,
+    "std_hallucination_score": 0.026204245776650315,
+    "high_risk_percentage": 100.0,
+    "results_path": "/Users/karthikhimaja/Desktop/AI HL /results/hallucination_evaluation.json"
+  },
+  "comparison": {
+    "baseline_accuracy": 0.9,
+    "few_shot_rouge1": 0.75,
+    "improvement": -0.15000000000000002
+  },
+  "conclusions": [
+    "Results are simulated due to lack of OpenAI API access. Real implementation would require API key.",
+    "Baseline approach performed better than few-shot method.",
+    "Hallucination detection reveals potential safety concerns.",
+    "This high-risk approach demonstrates the challenges and opportunities of AI in healthcare."
+  ],
+  "safety_metrics": {
+    "mean_hallucination_score": 0.5028030030862368,
+    "high_risk_percentage": 100.0,
+    "total_warnings": 0
+  }
+}

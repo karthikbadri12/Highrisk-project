@@ -1,0 +1,53 @@
+{
+  "model": "rule_based_baseline",
+  "approach": "extract_key_phrases",
+  "test_samples": 20,
+  "predictions": [
+    "85 year old M with symptoms related to kidney_disease. Plan: standard treatment.",
+    "69 year old F with 5-day history of productive cough with yellow sputum. Plan: standard treatment.",
+    "81 year old M with known Type 2 diabetes mellitus for 8 years. Plan: standard treatment.",
+    "68 year old M with symptoms related to kidney_disease. Plan: standard treatment.",
+    "69 year old F with 5-day history of productive cough with yellow sputum. Plan: standard treatment.",
+    "76 year old M with 5-day history of productive cough with yellow sputum. Plan: standard treatment.",
+    "78 year old M with symptoms related to heart_failure. Plan: standard treatment.",
+    "54 year old M with symptoms related to heart_failure. Plan: standard treatment.",
+    "72 year old F with 5-day history of productive cough with yellow sputum. Plan: standard treatment.",
+    "48 year old F with symptoms related to heart_failure. Plan: standard treatment.",
+    "77 year old M with symptoms related to heart_failure. Plan: standard treatment.",
+    "99 year old M with 5-day history of productive cough with yellow sputum. Plan: standard treatment.",
+    "62 year old F with symptoms related to kidney_disease. Plan: standard treatment.",
+    "69 year old M with known Type 2 diabetes mellitus for 8 years. Plan: standard treatment.",
+    "65 year old F with symptoms related to kidney_disease. Plan: standard treatment.",
+    "75 year old M with 5-day history of productive cough with yellow sputum. Plan: standard treatment.",
+    "73 year old M with known Type 2 diabetes mellitus for 8 years. Plan: standard treatment.",
+    "86 year old M with consistently elevated blood pressure readings over the past 3 months. Plan: standard treatment.",
+    "69 year old F with consistently elevated blood pressure readings over the past 3 months. Plan: standard treatment.",
+    "53 year old M with known Type 2 diabetes mellitus for 8 years. Plan: standard treatment."
+  ],
+  "true_summaries": [
+    "85 year old M with kidney disease. Plan Treatment plan.",
+    "69 year old F with right lower lobe pneumonia. Plan Antibiotic therapy with ceftriaxone and azithromycin.",
+    "81 year old M with poorly controlled Type 2 diabetes, HbA1c 9.2. Plan Insulin adjustment and diabetes education.",
+    "68 year old M with kidney disease. Plan Treatment plan.",
+    "69 year old F with right lower lobe pneumonia. Plan Antibiotic therapy with ceftriaxone and azithromycin.",
+    "76 year old M with right lower lobe pneumonia. Plan Antibiotic therapy with ceftriaxone and azithromycin.",
+    "78 year old M with heart failure. Plan Treatment plan.",
+    "54 year old M with heart failure. Plan Treatment plan.",
+    "72 year old F with right lower lobe pneumonia. Plan Antibiotic therapy with ceftriaxone and azithromycin.",
+    "48 year old F with heart failure. Plan Treatment plan.",
+    "77 year old M with heart failure. Plan Treatment plan.",
+    "99 year old M with right lower lobe pneumonia. Plan Antibiotic therapy with ceftriaxone and azithromycin.",
+    "62 year old F with kidney disease. Plan Treatment plan.",
+    "69 year old M with poorly controlled Type 2 diabetes, HbA1c 9.2. Plan Insulin adjustment and diabetes education.",
+    "65 year old F with kidney disease. Plan Treatment plan.",
+    "75 year old M with right lower lobe pneumonia. Plan Antibiotic therapy with ceftriaxone and azithromycin.",
+    "73 year old M with poorly controlled Type 2 diabetes, HbA1c 9.2. Plan Insulin adjustment and diabetes education.",
+    "86 year old M with essential hypertension, BP 16595 mmHg. Plan ACE inhibitor therapy and lifestyle modifications.",
+    "69 year old F with essential hypertension, BP 16595 mmHg. Plan ACE inhibitor therapy and lifestyle modifications.",
+    "53 year old M with poorly controlled Type 2 diabetes, HbA1c 9.2. Plan Insulin adjustment and diabetes education."
+  ],
+  "metrics": {
+    "accuracy": 0.9,
+    "avg_summary_length": 14.6
+  }
+}

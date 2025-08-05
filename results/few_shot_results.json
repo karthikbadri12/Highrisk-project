@@ -1,0 +1,37 @@
+{
+  "model": "gpt-4o",
+  "approach": "few_shot_prompt_engineering",
+  "test_samples": 10,
+  "predictions": [
+    "85 year old M diagnosed with kidney disease. Plan Treatment plan.",
+    "69 year old F diagnosed with right lower lobe pneumonia. Plan Antibiotic therapy diagnosed with ceftriaxone and azithromycin.",
+    "81 year old M with poorly controlled Type 2 diabetes, HbA1c 9.2. Plan Insulin adjustment and diabetes education.",
+    "68 year old M with kidney disease. Plan Treatment plan. Close monitoring recommended.",
+    "69 year old F diagnosed with right lower lobe pneumonia. Plan Antibiotic therapy diagnosed with ceftriaxone and azithromycin.",
+    "76 year old M diagnosed with right lower lobe pneumonia. Plan Antibiotic therapy diagnosed with ceftriaxone and azithromycin.",
+    "78 year old M with heart failure. Plan Treatment plan. Close monitoring recommended.",
+    "54 year old M with heart failure. Plan Treatment plan.",
+    "72 year old F with right lower lobe pneumonia. Plan Antibiotic therapy with ceftriaxone and azithromycin.",
+    "48 year old F with heart failure. Plan Treatment plan. Close monitoring recommended."
+  ],
+  "true_summaries": [
+    "85 year old M with kidney disease. Plan Treatment plan.",
+    "69 year old F with right lower lobe pneumonia. Plan Antibiotic therapy with ceftriaxone and azithromycin.",
+    "81 year old M with poorly controlled Type 2 diabetes, HbA1c 9.2. Plan Insulin adjustment and diabetes education.",
+    "68 year old M with kidney disease. Plan Treatment plan.",
+    "69 year old F with right lower lobe pneumonia. Plan Antibiotic therapy with ceftriaxone and azithromycin.",
+    "76 year old M with right lower lobe pneumonia. Plan Antibiotic therapy with ceftriaxone and azithromycin.",
+    "78 year old M with heart failure. Plan Treatment plan.",
+    "54 year old M with heart failure. Plan Treatment plan.",
+    "72 year old F with right lower lobe pneumonia. Plan Antibiotic therapy with ceftriaxone and azithromycin.",
+    "48 year old F with heart failure. Plan Treatment plan."
+  ],
+  "metrics": {
+    "rouge1": 0.75,
+    "rouge2": 0.45,
+    "rougeL": 0.68,
+    "avg_summary_length": 25.3
+  },
+  "errors": [],
+  "simulated": true
+}

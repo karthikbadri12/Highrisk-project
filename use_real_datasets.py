@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 """
 Script to demonstrate using real healthcare datasets in the high-risk AI project.
-This shows how to integrate various online datasets into your project.
 """
 
 import sys

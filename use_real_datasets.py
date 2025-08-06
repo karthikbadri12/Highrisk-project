@@ -154,7 +154,7 @@ def show_integration_steps():
     """Show step-by-step integration process."""
     
     print("\n" + "=" * 60)
-    print("🔧 STEP-BY-STEP DATASET INTEGRATION")
+    print("STEP-BY-STEP DATASET INTEGRATION")
     print("=" * 60)
     
     steps = [
@@ -199,14 +199,14 @@ def demonstrate_current_project():
     """Show how the current project can be enhanced with real data."""
     
     print("\n" + "=" * 60)
-    print("🚀 ENHANCING CURRENT PROJECT WITH REAL DATA")
+    print("ENHANCING CURRENT PROJECT WITH REAL DATA")
     print("=" * 60)
     
     print("\nCurrent Project Status:")
-    print("✅ Synthetic clinical notes (200 samples)")
-    print("✅ Few-shot summarization with GPT-4o")
-    print("✅ Hallucination detection system")
-    print("✅ Complete evaluation pipeline")
+    print("Synthetic clinical notes (200 samples)")
+    print("Few-shot summarization with GPT-4o")
+    print("Hallucination detection system")
+    print("Complete evaluation pipeline")
     
     print("\nEnhancement Options:")
     

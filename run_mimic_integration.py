@@ -74,7 +74,7 @@ def analyze_mimic_data():
         print(f"\n🏥 Admission Types:")
         print(admissions_df['ADMISSION_TYPE'].value_counts())
         
-        print(f"\n📋 Top Diagnoses:")
+        print(f"\nTop Diagnoses:")
         if 'DIAGNOSES_ICD' in patient_data:
             diagnoses_df = patient_data['DIAGNOSES_ICD']
             top_diagnoses = diagnoses_df['ICD9_CODE'].value_counts().head(10)
@@ -91,16 +91,16 @@ def create_mimic_dataset():
     splits = create_mimic_iii_dataset(num_samples=200)
     
     if not splits:
-        print("❌ Failed to create MIMIC-III dataset")
+        print("Failed to create MIMIC-III dataset")
         return None
     
-    print(f"✅ Created dataset successfully!")
+    print(f"Created dataset successfully!")
     print(f"   Training samples: {len(splits['train'])}")
     print(f"   Validation samples: {len(splits['val'])}")
     print(f"   Test samples: {len(splits['test'])}")
     
     # Show sample data
-    print(f"\n📝 Sample Clinical Note:")
+    print(f"\nSample Clinical Note:")
     sample_note = splits['train'].iloc[0]
     print(f"   Patient ID: {sample_note['patient_id']}")
     print(f"   Age: {sample_note['age']}, Gender: {sample_note['gender']}")
@@ -113,7 +113,7 @@ def create_mimic_dataset():
 def run_mimic_experiment(splits):
     """Run the few-shot summarization experiment with MIMIC-III data."""
     
-    print("\n🧪 RUNNING MIMIC-III EXPERIMENT")
+    print("\nRUNNING MIMIC-III EXPERIMENT")
     print("=" * 50)
     
     # Initialize models
@@ -139,7 +139,7 @@ def run_mimic_experiment(splits):
         clinical_note = sample['clinical_note']
         true_summary = sample['summary']
         
-        print(f"\n📋 Sample {i+1}/{sample_size}")
+        print(f"\nSample {i+1}/{sample_size}")
         print(f"   Note: {clinical_note[:100]}...")
         print(f"   True Summary: {true_summary}")
         
@@ -173,7 +173,7 @@ def run_mimic_experiment(splits):
             'samples_processed': len(results['summaries'])
         }
         
-        print(f"\n📊 Results:")
+        print(f"\nResults:")
         print(f"   Average hallucination score: {avg_hallucination:.3f}")
         print(f"   Samples processed: {len(results['summaries'])}")
     
@@ -182,7 +182,7 @@ def run_mimic_experiment(splits):
 def compare_synthetic_vs_mimic():
     """Compare synthetic data vs MIMIC-III data."""
     
-    print("\n⚖️ COMPARING SYNTHETIC VS MIMIC-III DATA")
+    print("\nCOMPARING SYNTHETIC VS MIMIC-III DATA")
     print("=" * 50)
     
     # Load synthetic data
@@ -262,7 +262,7 @@ def main():
             compare_synthetic_vs_mimic()
         
         print("\n" + "=" * 50)
-        print("🎉 MIMIC-III INTEGRATION COMPLETED!")
+        print("MIMIC-III INTEGRATION COMPLETED!")
         print("=" * 50)
         print("\nNext Steps:")
         print("1. Review the generated clinical notes in data/clinical_notes/")
@@ -272,7 +272,7 @@ def main():
         
     except Exception as e:
         logger.error(f"Error in MIMIC-III integration: {e}")
-        print(f"❌ Error: {e}")
+        print(f"Error: {e}")
 
 if __name__ == "__main__":
     import numpy as np

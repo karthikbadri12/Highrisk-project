@@ -22,37 +22,57 @@ from src.evaluation.hallucination_detector import run_hallucination_evaluation
 from src.utils import config, logger
 
 def setup_environment():
-    """Setup the experiment environment."""
-    logger.info("Setting up experiment environment")
+    """
+    Initialize the experiment environment by creating necessary directories
+    and setting up logging for the clinical note summarization experiment.
+    """
+    logger.info("Initializing experiment environment")
     
-    # Create necessary directories
+    # Create output directories for results, logs, and data
     config.create_directories()
     
-    # Set up logging
-    logger.info("Environment setup completed")
+    logger.info("Environment setup completed successfully")
 
 def generate_data():
-    """Generate sample clinical data for the experiment."""
-    logger.info("Generating sample clinical data")
+    """
+    Generate synthetic clinical data for the experiment.
+    
+    Creates a dataset of clinical notes and summaries for training,
+    validation, and testing the few-shot summarization model.
+    
+    Returns:
+        Dict containing train, validation, and test data splits
+    """
+    logger.info("Generating synthetic clinical data for experiment")
     
     try:
         data_splits = create_sample_dataset()
-        logger.info(f"Data generation completed: {len(data_splits['train'])} train, {len(data_splits['val'])} val, {len(data_splits['test'])} test samples")
+        logger.info(f"Data generation completed successfully: {len(data_splits['train'])} train, {len(data_splits['val'])} val, {len(data_splits['test'])} test samples")
         return data_splits
     except Exception as e:
-        logger.error(f"Data generation failed: {e}")
+        logger.error(f"Data generation failed with error: {e}")
         raise
 
 def run_baseline_experiment_wrapper(data_splits):
-    """Run the baseline experiment."""
-    logger.info("Running baseline experiment")
+    """
+    Execute the baseline experiment using rule-based summarization.
+    
+    This function implements a simple rule-based approach as a baseline
+    for comparison with the few-shot learning method.
+    
+    Args:
+        data_splits: Dictionary containing train, validation, and test data
+        
+    Returns:
+        Dictionary containing baseline experiment results and metrics
+    """
+    logger.info("Executing baseline experiment with rule-based summarization")
     
     try:
-        # Use a subset of data for baseline (since it's a demonstration)
-        test_data = data_splits['test'].head(20)  # Use first 20 samples
+        # Use a subset of test data for baseline evaluation
+        test_data = data_splits['test'].head(20)  # Evaluate on first 20 samples
         
-        # Create a simple baseline using the existing clinical data
-        # For this demo, we'll create a simple rule-based summarizer
+        # Initialize baseline results structure
         baseline_results = {
             'model': 'rule_based_baseline',
             'approach': 'extract_key_phrases',
@@ -62,99 +82,139 @@ def run_baseline_experiment_wrapper(data_splits):
             'metrics': {}
         }
         
-        # Simple rule-based summarization
-        for _, row in test_data.iterrows():
-            note = row['clinical_note_clean']
-            true_summary = row['summary_clean']
+        # Process each test sample using rule-based summarization
+        for _, sample in test_data.iterrows():
+            clinical_note = sample['clinical_note_clean']
+            reference_summary = sample['summary_clean']
             
-            # Extract key information using simple rules
-            summary = extract_key_info_baseline(note)
+            # Generate summary using rule-based extraction
+            predicted_summary = extract_key_info_baseline(clinical_note)
             
-            baseline_results['predictions'].append(summary)
-            baseline_results['true_summaries'].append(true_summary)
+            baseline_results['predictions'].append(predicted_summary)
+            baseline_results['true_summaries'].append(reference_summary)
         
-        # Calculate simple metrics
+        # Calculate evaluation metrics for baseline performance
         baseline_results['metrics'] = {
             'accuracy': calculate_simple_accuracy(baseline_results['true_summaries'], baseline_results['predictions']),
             'avg_summary_length': np.mean([len(s.split()) for s in baseline_results['predictions']])
         }
         
-        # Save baseline results
+        # Save baseline experiment results to file
         results_path = Path(config.get("paths.results")) / "baseline_results.json"
         results_path.parent.mkdir(parents=True, exist_ok=True)
         
-        with open(results_path, 'w') as f:
-            json.dump(baseline_results, f, indent=2, default=str)
+        with open(results_path, 'w') as results_file:
+            json.dump(baseline_results, results_file, indent=2, default=str)
         
-        logger.info(f"Baseline experiment completed. Accuracy: {baseline_results['metrics']['accuracy']:.4f}")
+        logger.info(f"Baseline experiment completed successfully. Accuracy: {baseline_results['metrics']['accuracy']:.4f}")
         return baseline_results
         
     except Exception as e:
         logger.error(f"Baseline experiment failed: {e}")
         return None
 
-def extract_key_info_baseline(note):
-    """Simple rule-based summarization for baseline."""
+def extract_key_info_baseline(clinical_note):
+    """
+    Extract key clinical information using rule-based pattern matching.
+    
+    This function implements a simple baseline approach that extracts
+    demographic information, diagnosis, vital signs, and treatment plan
+    from clinical notes using regular expressions.
+    
+    Args:
+        clinical_note: The clinical note text to summarize
+        
+    Returns:
+        A concise summary containing key clinical information
+    """
     import re
     
-    # Extract age and gender
-    age_gender_match = re.search(r'(\d+)\s*year\s*old\s*([MF])', note, re.IGNORECASE)
+    # Extract patient demographics (age and gender)
+    age_gender_match = re.search(r'(\d+)\s*year\s*old\s*([MF])', clinical_note, re.IGNORECASE)
     if age_gender_match:
-        age = age_gender_match.group(1)
-        gender = age_gender_match.group(2)
-        demographic = f"{age} year old {gender}"
+        patient_age = age_gender_match.group(1)
+        patient_gender = age_gender_match.group(2)
+        demographic_info = f"{patient_age} year old {patient_gender}"
     else:
-        demographic = "Patient"
+        demographic_info = "Patient"
     
-    # Extract diagnosis
+    # Extract primary diagnosis using multiple patterns
     diagnosis_patterns = [
         r'Assessment:\s*([^\.]+)',
         r'Diagnosis:\s*([^\.]+)',
         r'with\s+([^,\.]+)',
     ]
     
-    diagnosis = "unknown condition"
+    primary_diagnosis = "unknown condition"
     for pattern in diagnosis_patterns:
-        match = re.search(pattern, note, re.IGNORECASE)
+        match = re.search(pattern, clinical_note, re.IGNORECASE)
         if match:
-            diagnosis = match.group(1).strip()
+            primary_diagnosis = match.group(1).strip()
             break
     
-    # Extract blood pressure if present
-    bp_match = re.search(r'(\d+)/(\d+)\s*mmhg', note, re.IGNORECASE)
-    bp_info = ""
+    # Extract vital signs (blood pressure)
+    bp_match = re.search(r'(\d+)/(\d+)\s*mmhg', clinical_note, re.IGNORECASE)
+    vital_signs_info = ""
     if bp_match:
-        bp_info = f", BP {bp_match.group(1)}/{bp_match.group(2)} mmHg"
+        systolic = bp_match.group(1)
+        diastolic = bp_match.group(2)
+        vital_signs_info = f", BP {systolic}/{diastolic} mmHg"
     
-    # Extract plan
-    plan_match = re.search(r'Plan:\s*([^\.]+)', note, re.IGNORECASE)
-    plan = "standard treatment"
+    # Extract treatment plan
+    plan_match = re.search(r'Plan:\s*([^\.]+)', clinical_note, re.IGNORECASE)
+    treatment_plan = "standard treatment"
     if plan_match:
-        plan = plan_match.group(1).strip()
+        treatment_plan = plan_match.group(1).strip()
     
-    return f"{demographic} with {diagnosis}{bp_info}. Plan: {plan}."
+    return f"{demographic_info} with {primary_diagnosis}{vital_signs_info}. Plan: {treatment_plan}."
 
-def calculate_simple_accuracy(true_summaries, predicted_summaries):
-    """Calculate a simple accuracy metric for baseline comparison."""
-    # This is a simplified metric - in practice you'd use ROUGE or similar
-    correct = 0
-    total = len(true_summaries)
+def calculate_simple_accuracy(reference_summaries, predicted_summaries):
+    """
+    Calculate a simplified accuracy metric based on word overlap.
     
-    for true, pred in zip(true_summaries, predicted_summaries):
-        # Simple word overlap metric
-        true_words = set(true.lower().split())
-        pred_words = set(pred.lower().split())
+    This function computes the proportion of summaries that meet a minimum
+    word overlap threshold with their reference summaries. This is a simplified
+    metric used for baseline comparison - in production, ROUGE or similar
+    metrics would be more appropriate.
+    
+    Args:
+        reference_summaries: List of reference/true summaries
+        predicted_summaries: List of predicted summaries
         
-        if len(true_words) > 0:
-            overlap = len(true_words.intersection(pred_words)) / len(true_words)
-            if overlap > 0.3:  # 30% word overlap threshold
-                correct += 1
+    Returns:
+        Float representing the accuracy score (0.0 to 1.0)
+    """
+    correct_predictions = 0
+    total_samples = len(reference_summaries)
     
-    return correct / total if total > 0 else 0.0
+    for reference_summary, predicted_summary in zip(reference_summaries, predicted_summaries):
+        # Calculate word overlap between reference and prediction
+        reference_words = set(reference_summary.lower().split())
+        predicted_words = set(predicted_summary.lower().split())
+        
+        if len(reference_words) > 0:
+            word_overlap_ratio = len(reference_words.intersection(predicted_words)) / len(reference_words)
+            if word_overlap_ratio > 0.3:  # 30% word overlap threshold
+                correct_predictions += 1
+    
+    return correct_predictions / total_samples if total_samples > 0 else 0.0
 
 def run_few_shot_experiment_wrapper(data_splits, api_key=None):
-    """Run the few-shot experiment."""
-    logger.info("Running few-shot experiment")
+    """
+    Execute the few-shot learning experiment using GPT-4o.
+    
+    This function implements the high-risk few-shot approach for clinical
+    note summarization. It uses prompt engineering with medical examples
+    to generate summaries from clinical notes.
+    
+    Args:
+        data_splits: Dictionary containing train, validation, and test data
+        api_key: Optional OpenAI API key (uses environment variable if not provided)
+        
+    Returns:
+        Dictionary containing few-shot experiment results and metrics
+    """
+    logger.info("Executing few-shot learning experiment with GPT-4o")
     
     try:
         # Use a subset of test data for the experiment

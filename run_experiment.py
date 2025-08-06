@@ -1,8 +1,7 @@
 #!/usr/bin/env python3
 """
 Main experiment runner for the high-risk AI healthcare project.
-This script runs the complete pipeline: data generation, baseline, few-shot approach, and evaluation.
-"""
+
 
 import os
 import sys

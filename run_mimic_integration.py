@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 """
 Script to integrate MIMIC-III data into the high-risk AI healthcare project.
-This demonstrates how to use real clinical data for the summarization task.
 """
 
 import sys

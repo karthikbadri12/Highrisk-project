@@ -3,7 +3,7 @@
 ## Project Overview
 This repository contains a **completed high-risk AI project** in healthcare that explores few-shot learning for clinical note summarization with comprehensive hallucination detection. The project demonstrates both the potential and challenges of using large language models in healthcare applications.
 
-## 🎯 Project Status: COMPLETED ✅
+## 🎯 Project Status: COMPLETED 
 
 This project has been successfully implemented and tested, providing valuable insights into:
 - Few-shot learning for clinical NLP
@@ -32,7 +32,7 @@ This project has been successfully implemented and tested, providing valuable in
 
 ## Getting Started
 
-## 🚀 Quick Start
+## Quick Start
 
 ### Run the Complete Experiment
 ```bash
@@ -48,7 +48,7 @@ python run_experiment.py
 - **ACM Research Paper**: `docs/report/final_report.tex`
 - **Presentation Slides**: `docs/presentation/final_presentation.md`
 
-## 📊 Key Results
+##  Key Results
 
 | Metric | Baseline | Few-Shot | Improvement |
 |--------|----------|----------|-------------|
@@ -77,7 +77,7 @@ pip install -r requirements.txt
 - **Week 5**: Analyze results, draft Introduction/Conclusion, design figures
 - **Week 6**: Polish paper, record 5-min presentation, push clean code
 
-## ✅ Deliverables Completed
+## Deliverables Completed
 
 - [x] **ACM-style research report** (~5 pages) - `docs/report/final_report.tex`
 - [x] **Presentation slides** - `docs/presentation/final_presentation.md`
@@ -96,10 +96,7 @@ pip install -r requirements.txt
 - [ACM Template](https://www.acm.org/publications/proceedings-template)
 - [Google Scholar](https://scholar.google.com/) for literature review
 - [PhysioNet](https://physionet.org/) for healthcare datasets
-- [MIMIC-IV](https://mimic.mit.edu/) for clinical data
-
-## Contact
-For questions about this project, refer to the course guidelines and office hours.
+- [MIMIC-III](https://mimic.mit.edu/) for clinical data
 
 ---
 *Remember: The goal is to learn through exploration, not to achieve perfect results. Document your journey, including failures and unexpected discoveries.* 
